@@ -12,4 +12,6 @@ body {
   color: #bbbbbb;
 }
 
-
+.dynamic-shadow-dom {
+  --dynamic-border-radius: 1px;
+}

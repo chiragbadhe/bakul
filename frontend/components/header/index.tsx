@@ -1,7 +1,7 @@
 import React from "react";
-import CustomButton from "../CustomButton";
 import Link from "next/link"; // Import Link from Next.js for navigation
 import VerifyWorldcoin from "../verifyWorldcoin";
+import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
 
 const Header = () => {
   return (
@@ -44,7 +44,9 @@ const Header = () => {
           </Link>
         </div>
         <div className="flex items-center space-x-[12px]">
-          <CustomButton />
+          <div className="border border-blue-600">
+            <DynamicWidget />
+          </div>
 
           <div className="px-4 py-2 font-bold border text-white border-white/5 transition-all duration-300 ease-in-out transform bg-[#1F1F21]">
             <VerifyWorldcoin />
