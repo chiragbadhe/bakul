@@ -95,7 +95,6 @@ export default function RootLayout({
           theme="dark"
           settings={{
             // overrides: { evmNetworks },
-            cssOveride: "--dynamic-border-radius",
             environmentId: "f5412ec4-853a-474a-811b-52c274a9ffc9",
             walletConnectors: [EthereumWalletConnectors],
           }}

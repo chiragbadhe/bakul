@@ -44,7 +44,7 @@ const Header = () => {
           </Link>
         </div>
         <div className="flex items-center space-x-[12px]">
-          <div className="border border-blue-600">
+          <div className="border border-blue-600 z-50">
             <DynamicWidget />
           </div>
 
