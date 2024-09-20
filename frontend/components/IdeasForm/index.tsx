@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserProvider, Contract } from "ethers";
-import { contractABI, contractAddress } from "@/utils/ideasContract";
+import { contractABI, contractAddressFlow } from "@/utils/ideasContract";
+import { getAccount, signTypedData } from "wagmi/actions"
 
 const IdeaForm: React.FC = () => {
   const [idea, setIdea] = useState({ title: "", description: "" });
@@ -20,7 +21,7 @@ const IdeaForm: React.FC = () => {
 
     const provider = new BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
-    const contract = new Contract(contractAddress, contractABI, signer);
+    const contract = new Contract(contractAddressFlow, contractABI, signer);
 
     setLoading(true);
     setError("");

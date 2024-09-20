@@ -1,4 +1,6 @@
-export const contractAddress = "0xeAE50FF954bF205485959Bd5E051942E793D9d2E";
+export const contractAddressFlow = "0xeAE50FF954bF205485959Bd5E051942E793D9d2E";
+export const contractAddressSepolia =
+  "0xeAE50FF954bF205485959Bd5E051942E793D9d2E";
 
 export const contractABI = [
   {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { HexColorPicker } from "react-colorful";
+import { getAccount, signTypedData } from "wagmi/actions";
 
 interface EditElementProps {
   bgColor: string;

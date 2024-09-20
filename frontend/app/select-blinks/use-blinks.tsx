@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { templates } from "@/utils/templates";
+import { useAttestUserBlink } from "@/hooks/useSignBlinks";
 
 interface CreateBlink3Props {
   currentBlinkObject: {
@@ -19,6 +20,7 @@ const CreateBlink3: React.FC<CreateBlink3Props> = ({
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [linkCopied, setLinkCopied] = useState(false);
   const [socialLinkCopied, setSocialLinkCopied] = useState(false);
+  const { attest, loading, error } = useAttestUserBlink();
 
   useEffect(() => {
     if (currentBlinkObject.templateName) {
@@ -30,6 +32,8 @@ const CreateBlink3: React.FC<CreateBlink3Props> = ({
     try {
       const url = `ipfs://${newIPFShash}`; // The IPFS link you want to copy
       await navigator.clipboard.writeText(url);
+      await attest(url); // Replace with your actual Blink hash
+      console.log("clicked", error, loading)
       setLinkCopied(true);
       setTimeout(() => setLinkCopied(false), 2000);
     } catch (error) {
@@ -41,6 +45,7 @@ const CreateBlink3: React.FC<CreateBlink3Props> = ({
     try {
       const url = `<blk ipfs://${newIPFShash} blk>`;
       await navigator.clipboard.writeText(url);
+
       setSocialLinkCopied(true);
       setTimeout(() => setSocialLinkCopied(false), 2000);
     } catch (error) {

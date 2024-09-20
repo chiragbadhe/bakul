@@ -1,0 +1,44 @@
+type CollaboratorAccepted @entity(immutable: true) {
+  id: Bytes!
+  ideaId: BigInt! # uint256
+  user: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type CollaboratorRejected @entity(immutable: true) {
+  id: Bytes!
+  ideaId: BigInt! # uint256
+  user: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type IdeaSubmitted @entity(immutable: true) {
+  id: Bytes!
+  ideaId: BigInt! # uint256
+  publisher: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type InterestExpressed @entity(immutable: true) {
+  id: Bytes!
+  ideaId: BigInt! # uint256
+  user: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Voted @entity(immutable: true) {
+  id: Bytes!
+  ideaId: BigInt! # uint256
+  voter: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

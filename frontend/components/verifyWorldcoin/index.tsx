@@ -18,8 +18,8 @@ const onSuccess = () => {
 export default function VerifyWorldcoin() {
   return (
     <IDKitWidget
-      app_id={process.env.APP_ID as `app_${string}`} // obtained from the Developer Portal
-      action={process.env.ACTION_ID as string} // obtained from the Developer Portal
+      app_id={process.env.WORLDCOIN_APP_ID as `app_${string}`} // obtained from the Developer Portal
+      action={process.env.WORLDCOIN_ACTION_ID as string} // obtained from the Developer Portal
       verification_level={VerificationLevel.Device}
       handleVerify={verifyProof}
       onSuccess={onSuccess}

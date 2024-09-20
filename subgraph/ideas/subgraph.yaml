@@ -1,0 +1,38 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: idea-collaboration
+    network: sepolia
+    source:
+      address: "0x74B1Fa531aA53AC18bE9eB5A5B6D1dc0F118c822"
+      abi: idea-collaboration
+      startBlock: 6728881
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CollaboratorAccepted
+        - CollaboratorRejected
+        - IdeaSubmitted
+        - InterestExpressed
+        - Voted
+      abis:
+        - name: idea-collaboration
+          file: ./abis/idea-collaboration.json
+      eventHandlers:
+        - event: CollaboratorAccepted(indexed uint256,indexed address)
+          handler: handleCollaboratorAccepted
+        - event: CollaboratorRejected(indexed uint256,indexed address)
+          handler: handleCollaboratorRejected
+        - event: IdeaSubmitted(uint256,indexed address)
+          handler: handleIdeaSubmitted
+        - event: InterestExpressed(indexed uint256,indexed address)
+          handler: handleInterestExpressed
+        - event: Voted(indexed uint256,indexed address)
+          handler: handleVoted
+      file: ./src/idea-collaboration.ts
