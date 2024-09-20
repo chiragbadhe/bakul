@@ -1,0 +1,15 @@
+/* styles/globals.css or styles/tailwind.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Galindo&display=swap");
+
+body {
+  background-color: #101011; /* Black background */
+  color: #bbbbbb;
+}
+
+
