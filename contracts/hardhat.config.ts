@@ -30,6 +30,16 @@ const config: HardhatUserConfig = {
       url: "https://eth-goerli.g.alchemy.com/v2/Lqi-_lwH8mlKdYiB23flLulXxchmOzpl",
       accounts: [process.env.PRIVATE_KEY || ""],
     },
+    hederaTestnet: {
+      chainId: 296,
+      url: "https://testnet.hashio.io/api",
+      accounts: [process.env.PRIVATE_KEY || ""],
+    },
+    morphTestnet: {
+      chainId: 2810,
+      url: "https://rpc-holesky.morphl2.io",
+      accounts: [process.env.PRIVATE_KEY || ""],
+    },
     flowTestnet: {
       chainId: 545,
       url: "https://testnet.evm.nodes.onflow.org",

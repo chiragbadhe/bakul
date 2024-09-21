@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { templates } from "@/utils/templates";
 import { useAttestUserBlink } from "@/hooks/useSignBlinks";
+import { useSubmitMessageToTopic } from "@/hooks/useSubmitMessageToTopic";
 
 interface CreateBlink3Props {
   currentBlinkObject: {
@@ -22,6 +23,13 @@ const CreateBlink3: React.FC<CreateBlink3Props> = ({
   const [socialLinkCopied, setSocialLinkCopied] = useState(false);
   const { attest, loading, error } = useAttestUserBlink();
 
+  const {
+    isSubmitting,
+    error: errSubmitMessage,
+    txId,
+    submitMessage,
+  } = useSubmitMessageToTopic();
+
   useEffect(() => {
     if (currentBlinkObject.templateName) {
       setSelectedTemplate(currentBlinkObject.templateName);
@@ -33,7 +41,7 @@ const CreateBlink3: React.FC<CreateBlink3Props> = ({
       const url = `ipfs://${newIPFShash}`; // The IPFS link you want to copy
       await navigator.clipboard.writeText(url);
       await attest(url); // Replace with your actual Blink hash
-      console.log("clicked", error, loading)
+      console.log("clicked", error, loading);
       setLinkCopied(true);
       setTimeout(() => setLinkCopied(false), 2000);
     } catch (error) {
@@ -45,6 +53,13 @@ const CreateBlink3: React.FC<CreateBlink3Props> = ({
     try {
       const url = `<blk ipfs://${newIPFShash} blk>`;
       await navigator.clipboard.writeText(url);
+
+      try {
+        await submitMessage(`ipfs://${newIPFShash}`);
+        alert("Message submitted successfully.");
+      } catch (err) {
+        alert("Failed to submit message.");
+      }
 
       setSocialLinkCopied(true);
       setTimeout(() => setSocialLinkCopied(false), 2000);

@@ -19,7 +19,9 @@ const CreateBlink2: React.FC<CreateBlink2Props> = ({
   handleNextClick,
   setNewIPFShash,
 }) => {
+  
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+
   const [editingElement, setEditingElement] = useState<HTMLElement | null>(
     null
   );

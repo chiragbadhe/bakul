@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { BrowserProvider, Contract } from "ethers";
-import { contractABI, contractAddressFlow } from "@/utils/ideasContract";
-import { getAccount, signTypedData } from "wagmi/actions"
+import { chainId, contractABI, contractAddresses } from "@/utils/ideasContract";
+import { getAccount, signTypedData } from "wagmi/actions";
 
 const IdeaForm: React.FC = () => {
   const [idea, setIdea] = useState({ title: "", description: "" });
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+
+  const contractAddress = contractAddresses[chainId]; // Use square brackets for indexing
 
   const submitIdea = async () => {
     if (!window.ethereum) {
@@ -19,9 +21,10 @@ const IdeaForm: React.FC = () => {
       return;
     }
 
+
     const provider = new BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
-    const contract = new Contract(contractAddressFlow, contractABI, signer);
+    const contract = new Contract(contractAddress, contractABI, signer);
 
     setLoading(true);
     setError("");

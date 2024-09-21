@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
-import { BrowserProvider, Contract } from "ethers";
-import { contractABI, contractAddress } from "@/utils/ideasContract";
-import { getEnsAddress, getEnsName } from "@wagmi/core";
-import { config } from "@/config";
-import { Address } from "viem";
-import { getAccount } from "@wagmi/core";
+import { Addressable, BrowserProvider, Contract } from "ethers";
+import { chainId, contractABI, contractAddresses } from "@/utils/ideasContract";
 
 // Define the type for Idea and Interest to improve type safety
 interface Idea {
@@ -28,9 +24,8 @@ const IdeaList: React.FC = () => {
   const [interestedUsers, setInterestedUsers] = useState<Interest[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  const { address } = getAccount(config);
+  const contractAddress = contractAddresses[chainId]; // Use square brackets for indexing
 
-  // Function to fetch ideas from the contract
   const fetchIdeas = async () => {
     if (!window.ethereum) {
       setError("Please install MetaMask to interact with the ideas.");
