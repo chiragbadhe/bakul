@@ -121,7 +121,7 @@ const CreateBlink2: React.FC<CreateBlink2Props> = ({
           };`
         )
         .replace(
-          /const recipient = '0x53FA684bDd93da5324BDc8B607F8E35eC79ccF5A';/,
+          /const recipient = '0x410C8213e82393C08cee3c3DF1C9231244d32898';/,
           `const recipient = '${recipient}';`
         );
 
