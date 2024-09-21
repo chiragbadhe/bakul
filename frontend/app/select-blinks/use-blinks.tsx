@@ -38,6 +38,8 @@ const CreateBlink3: React.FC<CreateBlink3Props> = ({
     }
   }, [currentBlinkObject]);
 
+  
+
   const copyLink = async () => {
     try {
       const url = `ipfs://${newIPFShash}`; // The IPFS link you want to copy

@@ -51,19 +51,25 @@ export const useAttestUserBlink = () => {
         account: privateKeyToAccount(privateKey as `0x${string}`), // Cast to the expected type
       });
 
-      const addr = "0x91Df2C0E91e07b97Cac550dEcf7b5F43266F51EF"; // Example user address
-      // Create attestation for Blink
-      const signAttestationResult = await client.createAttestation({
-        schemaId: "0x246", // Replace with your schema ID
-        data: {
-          user: addr, // The connected user's address
-          blinkHash, // Blink content hash
-          timestamp: new Date().toISOString(), // Metadata (timestamp)
-        },
-        indexingValue: addr.toLowerCase(), // Index using the user's address
-      });
+      console.log(client);
 
-      console.log("Blink Attestation Result:", signAttestationResult);
+      try {
+        const addr = "0x91Df2C0E91e07b97Cac550dEcf7b5F43266F51EF"; // Example user address
+        // Create attestation for Blink
+        const signAttestationResult = await client.createAttestation({
+          schemaId: "0x246", // Replace with your schema ID
+          data: {
+            user: addr, // The connected user's address
+            blinkHash, // Blink content hash
+            timestamp: "tets", // Metadata (timestamp)
+          },
+          indexingValue: addr, // Index using the user's address
+        });
+
+        console.log("Blink Attestation Result:", signAttestationResult);
+      } catch (err) {
+        console.log(err);
+      }
     } catch (err: any) {
       setError(err.message || "An error occurred during attestation.");
     } finally {

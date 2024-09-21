@@ -36,6 +36,8 @@ const handleProof = async (result: ISuccessResult) => {
   if (data.success) {
     console.log("Successful response from backend:\n", JSON.stringify(data)); // Log the response from our backend for visibility
   } else {
+    console.log(data);
+
     throw new Error(`Verification failed: ${data.detail}`);
   }
 };

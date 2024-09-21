@@ -21,13 +21,15 @@ interface IVerifyRequest {
 }
 
 const app_id = process.env.NEXT_PUBLIC_WORLDCOIN_APP_ID as `app_${string}`;
-const action = process.env.NEXT_WORLDCOIN_ACTION_ID as string;
+const action = process.env.NEXT_PUBLIC_WORLDCOIN_ACTION_ID as string;
 
 export async function verify(
   proof: IVerifyRequest["proof"],
   signal?: string
 ): Promise<VerifyReply> {
   const verifyRes = await verifyCloudProof(proof, app_id, action, signal);
+
+  console.log(verifyRes);
   if (verifyRes.success) {
     return { success: true };
   } else {
