@@ -12,10 +12,11 @@ const Hero = () => {
         <span className="text-[72px]">Create. Customize. Captivatve</span>
 
         <span className="max-w-[700px] text-center text-[20px]">
-          Bakul is a cutting-edge Web3 plugin that seamlessly integrates
-          blockchain actions into any web environment. Inspired by Solana
+          Bakul is a cutting-edge Web3 solution that seamlessly integrates
+          blockchain capabilities into any web environment. Inspired by Solana
           Actions and Blinks, Bakul transforms everyday web interactions into
-          dynamic blockchain experiences.
+          dynamic, on-chain experiences, making decentralized technology more
+          accessible and intuitive for users.
         </span>
 
         <div className="flex space-x-[14px] mt-[35px]">
