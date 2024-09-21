@@ -1,14 +1,19 @@
 import { useState } from "react";
-import { BrowserProvider, Contract } from "ethers";
-import { chainId, contractABI, contractAddresses } from "@/utils/ideasContract";
+import { BrowserProvider, Contract, ethers } from "ethers";
+import { contractABI, contractAddresses } from "@/utils/ideasContract";
 import { getAccount, signTypedData } from "wagmi/actions";
+
+import { getChainId } from "wagmi/actions";
+import useChainId from "@/hooks/useChainId";
 
 const IdeaForm: React.FC = () => {
   const [idea, setIdea] = useState({ title: "", description: "" });
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
-  const contractAddress = contractAddresses[chainId]; // Use square brackets for indexing
+  const { chainId, error: chainIdErr } = useChainId();
+
+  const contractAddress = contractAddresses[chainId!]; // Use square brackets for indexing
 
   const submitIdea = async () => {
     if (!window.ethereum) {
@@ -20,7 +25,6 @@ const IdeaForm: React.FC = () => {
       setError("Both title and description are required.");
       return;
     }
-
 
     const provider = new BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();

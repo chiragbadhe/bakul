@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { ethers } from "ethers"; // Ensure you have ethers installed
 import { contractAddresses } from "@/utils/ideasContract";
 
-
 function useIdeaContractAddress(): string | null {
   const [contractAddress, setContractAddress] = useState<string | null>(null);
 
@@ -16,6 +15,8 @@ function useIdeaContractAddress(): string | null {
         setContractAddress(contractAddresses[chainId] || null);
       }
     };
+
+    console.log(fetchChainId);
 
     fetchChainId();
   }, []);

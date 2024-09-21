@@ -21,6 +21,8 @@ const CreateBlink3: React.FC<CreateBlink3Props> = ({
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [linkCopied, setLinkCopied] = useState(false);
   const [socialLinkCopied, setSocialLinkCopied] = useState(false);
+  const [hederaLink, setHederaLink] = useState();
+
   const { attest, loading, error } = useAttestUserBlink();
 
   const {
@@ -40,7 +42,7 @@ const CreateBlink3: React.FC<CreateBlink3Props> = ({
     try {
       const url = `ipfs://${newIPFShash}`; // The IPFS link you want to copy
       await navigator.clipboard.writeText(url);
-      await attest(url); // Replace with your actual Blink hash
+      await attest("test"); // Replace with your actual Blink hash
       console.log("clicked", error, loading);
       setLinkCopied(true);
       setTimeout(() => setLinkCopied(false), 2000);
@@ -56,7 +58,8 @@ const CreateBlink3: React.FC<CreateBlink3Props> = ({
 
       try {
         await submitMessage(`ipfs://${newIPFShash}`);
-        alert("Message submitted successfully.");
+        setHederaLink(txId as any);
+        // alert("Message submitted successfully.");
       } catch (err) {
         alert("Failed to submit message.");
       }
@@ -68,12 +71,21 @@ const CreateBlink3: React.FC<CreateBlink3Props> = ({
     }
   };
 
+  console.log(hederaLink);
+
   return (
     <div className="p-5 zoom-75">
       <h4 className="text-lg font-semibold">Your Blink Is Ready</h4>
       <p className="text-base mt-2">
         It has been deployed and can be accessed via IPFS using the link below
       </p>
+      <a
+        className="text-green-600"
+        target="_blank"
+        href={`https://hashscan.io/testnet/transaction/${hederaLink}`}
+      >
+        Hedera Scan Message : {hederaLink}
+      </a>
       <div className="mt-3 flex gap-3">
         <button
           onClick={copyLink}
