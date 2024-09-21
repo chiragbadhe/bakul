@@ -2,6 +2,7 @@ const { publishToIPFS } = require("../services/pinataService");
 
 const makeId = () => Math.floor(Math.random() * 100000000);
 
+//eth transfer blinks 
 async function generateEthTransferBlinkCtrl(req, res, next) {
   const id = makeId();
   const iframe = {
@@ -55,6 +56,8 @@ async function generateEthTransferBlinkCtrl(req, res, next) {
 
   next();
 }
+
+//20 transfer blinks
 
 async function generateErc20TransferBlinkCtrl(req, res, next) {
   const iframe = {

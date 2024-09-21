@@ -8,7 +8,7 @@ async function publishToIPFS(iframe) {
     const ipfsFile = await pinata.pinJSONToIPFS(iframe);
     return ipfsFile.IpfsHash;
   } catch (error) {
-    throw new Error("Failed to publish to IPFS: " + error.message);
+    throw new Error("Try againFailed to publish to IPFS:  " + error.message);
   }
 }
 
