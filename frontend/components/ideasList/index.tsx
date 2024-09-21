@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Addressable, BrowserProvider, Contract } from "ethers";
 import { contractABI, chainId, contractAddresses } from "@/utils/ideasContract";
-import useChainId from "@/hooks/useChainId";
 
 // Define the type for Idea and Interest to improve type safety
 interface Idea {
@@ -25,11 +24,9 @@ const IdeaList: React.FC = () => {
   const [interestedUsers, setInterestedUsers] = useState<Interest[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  const { chainId } = useChainId();
-
   console.log(chainId);
 
-  const contractAddress = contractAddresses[chainId!];
+  const contractAddress = contractAddresses[chainId];
 
   const fetchIdeas = async () => {
     if (!window.ethereum) {

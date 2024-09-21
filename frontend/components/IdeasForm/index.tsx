@@ -1,19 +1,13 @@
 import { useState } from "react";
 import { BrowserProvider, Contract, ethers } from "ethers";
-import { contractABI, contractAddresses } from "@/utils/ideasContract";
-import { getAccount, signTypedData } from "wagmi/actions";
-
-import { getChainId } from "wagmi/actions";
-import useChainId from "@/hooks/useChainId";
+import { chainId, contractABI, contractAddresses } from "@/utils/ideasContract";
 
 const IdeaForm: React.FC = () => {
   const [idea, setIdea] = useState({ title: "", description: "" });
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
-  const { chainId, error: chainIdErr } = useChainId();
-
-  const contractAddress = contractAddresses[chainId!]; // Use square brackets for indexing
+  const contractAddress = contractAddresses[chainId]; // Use square brackets for indexing
 
   const submitIdea = async () => {
     if (!window.ethereum) {

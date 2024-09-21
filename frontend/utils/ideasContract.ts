@@ -1,10 +1,11 @@
-export const chainId = "2";
+
+export const chainId = "11155111";
 
 export const contractAddresses: { [key: string]: string } = {
-  11155111: "0x74B1Fa531aA53AC18bE9eB5A5B6D1dc0F118c822", // Sepolia
-  2: "0x0bf7FC2bA86001438f4c9cca000B9cE993595f66", // Hedera Testnet
-  3: "0xB3D1988C476B679ed16D115e7e6CEE87fC79b46F", // Morphtestnet
-  545: "0xeAE50FF954bF205485959Bd5E051942E793D9d2E", //flow
+  "11155111": "0x74B1Fa531aA53AC18bE9eB5A5B6D1dc0F118c822", // Sepolia
+  "2": "0x0bf7FC2bA86001438f4c9cca000B9cE993595f66", // Hedera Testnet
+  "3": "0xB3D1988C476B679ed16D115e7e6CEE87fC79b46F", // Morphtestnet
+  "545": "0xeAE50FF954bF205485959Bd5E051942E793D9d2E", //flow
 };
 
 export const contractABI = [
