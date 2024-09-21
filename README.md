@@ -65,12 +65,3 @@ Whether you’re looking to enhance your website or app with decentralized actio
 ---
 
 ✨ **Bakul** – Revolutionizing Web3 interactions, one Blink at a time! 🌐🔗
-
-# Bakul
-
-# Bakul
-
-# Bakul
-
-# Bakul
-# bakul
