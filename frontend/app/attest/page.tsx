@@ -17,7 +17,6 @@ const BlockchainComponent = () => {
 
   // Replace with actual private keys
   const privateKey = process.env.NEXT_PUBLIC_OPERATOR_ACCOUNT_PRIVATE_KEY; // Optional
-  const delegationPrivateKey = "0xaaaaa"; // Delegation key
 
   // Initialize SignProtocolClient
   const client = new SignProtocolClient(SpMode.OnChain, {
@@ -25,25 +24,38 @@ const BlockchainComponent = () => {
     account: privateKeyToAccount(privateKey as any),
   });
 
-  // Create Schema
-  const createSchema = async () => {
-    try {
-      const createSchemaRes = await client.createSchema({
-        name: "Blink Attestation",
-        description: "Schema for Blink attestation",
-        data: [
-          { name: "user", type: "string", description: "Address of the user attesting the blink" },
-          { name: "blinkHash", type: "string", description: "Hash of the Blink content" },
-          { name: "timestamp", type: "string", format: "date-time", description: "Timestamp of the attestation" },
-        ],
-      });
-      setSchemaId(createSchemaRes.schemaId);
-      setStatus("Schema created successfully.");
-    } catch (error) {
-      console.error(error);
-      setStatus("Failed to create schema.");
-    }
-  };
+//   // Create Schema
+//   const createSchema = async () => {
+//     try {
+//       const createSchemaRes = await client.createSchema({
+//         name: "Blink Attestation",
+//         description: "Schema for Blink attestation",
+//         data: [
+//           {
+//             name: "user",
+//             type: "string",
+//             description: "Address of the user attesting the blink",
+//           },
+//           {
+//             name: "blinkHash",
+//             type: "string",
+//             description: "Hash of the Blink content",
+//           },
+//           {
+//             name: "timestamp",
+//             type: "string",
+//             format: "date-time",
+//             description: "Timestamp of the attestation",
+//           },
+//         ],
+//       });
+//       setSchemaId(createSchemaRes.schemaId);
+//       setStatus("Schema created successfully.");
+//     } catch (error) {
+//       console.error(error);
+//       setStatus("Failed to create schema.");
+//     }
+//   };
 
   // Create Attestation
   const createAttestation = async () => {
@@ -70,7 +82,7 @@ const BlockchainComponent = () => {
       <h1>Blockchain Operations</h1>
       <p>Status: {status}</p>
 
-      <button onClick={createSchema}>Create Schema</button>
+      {/* <button onClick={createSchema}>Create Schema</button> */}
       <button onClick={createAttestation}>Create Attestation</button>
 
       {schemaId && <p>Schema ID: {schemaId}</p>}
