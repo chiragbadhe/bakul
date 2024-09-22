@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { templates } from "@/utils/templates";
-import { useAttestUserBlink } from "@/hooks/useSignBlinks";
 import { useSubmitMessageToTopic } from "@/hooks/useSubmitMessageToTopic";
+import { useCreateAttestation } from "@/hooks/useCreateAttestation";
 
 interface CreateBlink3Props {
   currentBlinkObject: {
@@ -23,7 +23,15 @@ const CreateBlink3: React.FC<CreateBlink3Props> = ({
   const [socialLinkCopied, setSocialLinkCopied] = useState(false);
   const [hederaLink, setHederaLink] = useState();
 
-  const { attest, loading, error } = useAttestUserBlink();
+  const [blinkHash, setBlinkHash] = useState<string>(""); // State to hold the blinkHash
+
+  const privateKey = process.env.NEXT_PUBLIC_OPERATOR_ACCOUNT_PRIVATE_KEY || ""; // Optional private key from env
+
+  const { createAttestation, attestationId, status } = useCreateAttestation(
+    privateKey
+  );
+
+  console.log(status, attestationId)
 
   const {
     isSubmitting,
@@ -38,14 +46,12 @@ const CreateBlink3: React.FC<CreateBlink3Props> = ({
     }
   }, [currentBlinkObject]);
 
-  
-
   const copyLink = async () => {
     try {
       const url = `ipfs://${newIPFShash}`; // The IPFS link you want to copy
       await navigator.clipboard.writeText(url);
-      await attest("test"); // Replace with your actual Blink hash
-      console.log("clicked", error, loading);
+      setBlinkHash(url);
+      await createAttestation(blinkHash); // Call the hook's function with the blinkHash
       setLinkCopied(true);
       setTimeout(() => setLinkCopied(false), 2000);
     } catch (error) {

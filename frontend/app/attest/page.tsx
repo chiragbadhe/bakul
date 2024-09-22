@@ -1,71 +1,82 @@
 "use client";
 import { useState } from "react";
-import { SignProtocolClient, SpMode, EvmChains } from "@ethsign/sp-sdk";
-import { ethers } from "ethers";
+import {
+  SignProtocolClient,
+  SpMode,
+  EvmChains,
+  delegateSignAttestation,
+  delegateSignRevokeAttestation,
+  delegateSignSchema,
+} from "@ethsign/sp-sdk";
 import { privateKeyToAccount } from "viem/accounts";
 
-const AttestPage = () => {
-  const [blinkHash, setBlinkHash] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+const BlockchainComponent = () => {
+  const [schemaId, setSchemaId] = useState<string | null>(null);
+  const [attestationId, setAttestationId] = useState<string | null>(null);
+  const [status, setStatus] = useState<string>("");
 
-  const handleAttest = async () => {
-    setLoading(true);
-    setError(null);
-    setSuccess(null);
+  // Replace with actual private keys
+  const privateKey = process.env.NEXT_PUBLIC_OPERATOR_ACCOUNT_PRIVATE_KEY; // Optional
+  const delegationPrivateKey = "0xaaaaa"; // Delegation key
 
+  // Initialize SignProtocolClient
+  const client = new SignProtocolClient(SpMode.OnChain, {
+    chain: EvmChains.sepolia,
+    account: privateKeyToAccount(privateKey as any),
+  });
+
+  // Create Schema
+  const createSchema = async () => {
     try {
-      const privateKey = process.env.NEXT_PUBLIC_OPERATOR_ACCOUNT_PRIVATE_KEY;
-      const adminWallet = privateKeyToAccount(privateKey as any);
-      const client = new SignProtocolClient(SpMode.OnChain, {
-        chain: EvmChains.sepolia,
-        account: adminWallet,
+      const createSchemaRes = await client.createSchema({
+        name: "Blink Attestation",
+        description: "Schema for Blink attestation",
+        data: [
+          { name: "user", type: "string", description: "Address of the user attesting the blink" },
+          { name: "blinkHash", type: "string", description: "Hash of the Blink content" },
+          { name: "timestamp", type: "string", format: "date-time", description: "Timestamp of the attestation" },
+        ],
       });
+      setSchemaId(createSchemaRes.schemaId);
+      setStatus("Schema created successfully.");
+    } catch (error) {
+      console.error(error);
+      setStatus("Failed to create schema.");
+    }
+  };
 
-      const signAttestationResult = await client.createAttestation({
-        schemaId: "0x246",
+  // Create Attestation
+  const createAttestation = async () => {
+    try {
+      const createAttestationRes = await client.createAttestation({
+        schemaId: schemaId || "0x1a6", // Use created schemaId or default
         data: {
-          user: "0x91Df2C0E91e07b97Cac550dEcf7b5F43266F51EF",
-          blinkHash,
+          user: "0x123456789", // Replace with actual user address
+          blinkHash: "0xabc123", // Replace with actual blink content hash
           timestamp: new Date().toISOString(),
         },
-        indexingValue: "0x91Df2C0E91e07b97Cac550dEcf7b5F43266F51EF",
+        indexingValue: "Blink Attestation",
       });
-
-      console.log("Blink Attestation Result:", signAttestationResult);
-      setSuccess("Attestation completed successfully!");
-    } catch (err: any) {
-      setError(err.message || "An error occurred during attestation.");
-    } finally {
-      setLoading(false);
+      setAttestationId(createAttestationRes.attestationId);
+      setStatus("Attestation created successfully.");
+    } catch (error) {
+      console.error(error);
+      setStatus("Failed to create attestation.");
     }
   };
 
   return (
-    <div className="container mx-auto py-10">
-      <h1 className="text-2xl font-bold mb-4">Attest User Blink</h1>
+    <div>
+      <h1>Blockchain Operations</h1>
+      <p>Status: {status}</p>
 
-      <input
-        type="text"
-        value={blinkHash}
-        onChange={(e) => setBlinkHash(e.target.value)}
-        placeholder="Enter Blink Hash"
-        className="border px-4 py-2 mb-4 w-full"
-      />
+      <button onClick={createSchema}>Create Schema</button>
+      <button onClick={createAttestation}>Create Attestation</button>
 
-      <button
-        onClick={handleAttest}
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-        disabled={loading}
-      >
-        {loading ? "Attesting..." : "Submit Blink Attestation"}
-      </button>
-
-      {error && <p className="text-red-500 mt-4">{error}</p>}
-      {success && <p className="text-green-500 mt-4">{success}</p>}
+      {schemaId && <p>Schema ID: {schemaId}</p>}
+      {attestationId && <p>Attestation ID: {attestationId}</p>}
     </div>
   );
 };
 
-export default AttestPage;
+export default BlockchainComponent;
